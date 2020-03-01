@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "env-cmd -f ./env/dev.env nodemon src/index",
-    "test": "env-cmd -f ./config/test.env jest"
+    "test": "env-cmd -f ./env/test.env jest --watch"
   },
   "repository": {
     "type": "git",
