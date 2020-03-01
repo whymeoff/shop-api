@@ -7,16 +7,16 @@ const getOrders = async (req, res) => {
 
         let sortOrders
         if (req.query.from && req.query.to) {
-            const from = new Date(from).getTime()
-            const to = new Date(to).getTime()
+            const from = new Date(req.query.from).getTime()
+            const to = new Date(req.query.to).getTime()
 
             if (from > to) throw new Error
 
             sortOrders = orders.filter((order) => {
-                return order.creationTime >= from && order.creationTime <= to
+                return order.creationDate >= from && order.creationDate <= to
             })
 
-            if (sortOrders.length === 0) return res.status(404).send()
+            if (sortOrders.length === 0) return res.send([])
         }
 
         return res.send(sortOrders || orders)

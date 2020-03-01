@@ -3,7 +3,6 @@ const Order = require('../models/order')
 const getOrders = async (req, res) => {
     try {
         const orders = await Order.find({ state: 0 })
-        if (!orders) return res.status(404).send()
 
         return res.send(orders)
     } catch (e) {
@@ -20,7 +19,7 @@ const orderExecuted = async (req, res) => {
     
         await order.save()
     
-        return res.send()
+        return res.send(order)
     } catch (e) {
         return res.status(400).send()
     }

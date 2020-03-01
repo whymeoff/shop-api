@@ -4,14 +4,15 @@ const Check = require('../models/cashierCheck')
 
 const createOrder = async (req, res) => {
     try {
-        const product = await Product.findById(req.params.id)
+        const product = await Product.findById(req.body.id)
+
         if (!product) throw new Error
         if (product.discount) product.price -= product.price/100*20
 
-        const order = new Order({ product: req.params.id, price: product.price })
+        const order = new Order({ product: product._id, price: product.price })
 
         await order.save()
-        return res.status(201).send()
+        return res.status(201).send(order)
     } catch (e) {
         return res.status(400).send()
     }
@@ -20,13 +21,14 @@ const createOrder = async (req, res) => {
 const cancelOrder = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id)
+
         if (!order) throw new Error
         if (order.state > 1) throw new Error
 
         order.state = 3 // State 3 = canceled order
         await order.save()
 
-        return res.send()
+        return res.send(order)
     } catch (e) {
         return res.status(400).send()
     }
