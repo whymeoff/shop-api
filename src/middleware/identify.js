@@ -1,6 +1,6 @@
 const isCashier = (req, res, next) => {
     if (req.isAuthenticated()) {
-        if (req.user.role === 'cashier') return next()
+        if (req.user.role === 'cashier' || req.user.role === 'admin') return next()
     } else {
         return res.status(401).send()
     }
@@ -10,7 +10,7 @@ const isCashier = (req, res, next) => {
 
 const isSeller = (req, res, next) => {
     if (req.isAuthenticated()) {
-        if (req.user.role === 'seller') return next()
+        if (req.user.role === 'seller' || req.user.role === 'admin') return next()
     } else {
         return res.status(401).send()
     }
@@ -20,7 +20,7 @@ const isSeller = (req, res, next) => {
 
 const isAccountant = (req, res, next) => {
     if (req.isAuthenticated()) {
-        if (req.user.role === 'accountant') return next()
+        if (req.user.role === 'accountant' || req.user.role === 'admin') return next()
     } else {
         return res.status(401).send()
     }
@@ -29,9 +29,8 @@ const isAccountant = (req, res, next) => {
 }
 
 const isAdmin = (req, res, next) => {
-    console.log(req.user)
     if (req.isAuthenticated()) {
-        if (req.user.role === 'admin') return next()
+        if (req.user.role === 'admin' || req.user.role === 'admin') return next()
     } else {
         return res.status(401).send()
     }
