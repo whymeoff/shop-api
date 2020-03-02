@@ -1,6 +1,19 @@
 const User = require('../models/user')
 const Product = require('../models/product')
 
+// Using to create admin profile, but in real life situation this account creates by user in database
+const createAdmin = async (req, res) => {
+    if (req.body.role !== 'admin' || await User.findOne({ role: 'admin' })) res.status(400).send()
+    const user = new User({ ...req.body })
+
+    try {
+        await user.save()
+        return res.status(201).send(user)
+    } catch (e) {
+        return res.status(400).send()
+    }
+}
+
 const createStaff = async (req, res) => {
     const user = new User({...req.body})
     
@@ -101,5 +114,6 @@ module.exports = {
     deleteStaff,
     createProduct,
     editProduct,
-    deleteProduct
+    deleteProduct,
+    createAdmin
 }
