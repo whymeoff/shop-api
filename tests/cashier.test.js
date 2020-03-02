@@ -30,6 +30,9 @@ test('Should create order', async () => {
         .send({ id: product._id })
         .expect(201)
 
+    const order = await Order.findById(res.body._id)
+    expect(order).not.toBeNull()
+    
     orderID = res.body._id
 })
 
