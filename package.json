@@ -19,8 +19,12 @@
   "homepage": "https://github.com/whymeoff/shop-api#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "connect-loki": "^1.1.0",
     "express": "^4.17.1",
+    "express-session": "^1.17.0",
     "mongoose": "^5.9.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "validator": "^12.2.0"
   },
   "devDependencies": {
@@ -28,5 +32,8 @@
     "jest": "^25.1.0",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
+  },
+  "nodemonConfig": {
+    "ignore": "session-store.db"
   }
 }
