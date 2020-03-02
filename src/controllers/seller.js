@@ -15,7 +15,7 @@ const getOrders = async (req, res) => {
 const orderExecuted = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id)
-        if (!order) throw new Error
+        if (!order) res.status(404).send()
         if (order.state !== 0) throw new Error
         order.state = 1 // State 1 = order executed
     

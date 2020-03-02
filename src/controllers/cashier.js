@@ -24,7 +24,7 @@ const cancelOrder = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id)
 
-        if (!order) throw new Error
+        if (!order) return res.status(404).send()
         if (order.state > 1) throw new Error
 
         order.state = 3 // State 3 = canceled order
@@ -40,7 +40,7 @@ const cancelOrder = async (req, res) => {
 const acceptPayment = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id)
-        if (!order) throw new Error
+        if (!order) return res.status(404).send()
         if (order.state !== 1) throw new Error
         order.state = 2 // State 2 = accepted payment
 
@@ -58,7 +58,7 @@ const acceptPayment = async (req, res) => {
 const getCheck = async (req, res) => {
     try {
         const check = await Check.findById(req.params.id)
-        if (!check) throw new Error
+        if (!check) return res.status(404).send()
 
         return res.send({ check })
     } catch (e) {
