@@ -14,4 +14,6 @@ router.patch('/cancelOrder/:id', identify.isCashier, controllers.cancelOrder)
 
 router.post('/acceptPayment/:id', identify.isCashier, controllers.acceptPayment)
 
+router.get('/getCheck/:id', identify.isCashier, controllers.getCheck)
+
 module.exports = router

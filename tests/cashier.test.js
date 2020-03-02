@@ -6,8 +6,9 @@ const users = require('../fixtures/users')
 const Product = require('../src/models/product')
 const Order = require('../src/models/order')
 const User = require('../src/models/user')
+const Check = require('../src/models/cashierCheck')
 
-let orderID, cookie
+let orderID, checkID, cookie
 
 beforeAll(async () => {
     await new User(users.admin).save()
@@ -61,9 +62,24 @@ test('Should not accept payment', async () => {
 test('Should accept payments', async () => {
     const order = await new Order({ product: products[0]._id, state: 1, price: products[0].price }).save()
 
-    res = await request(app)
+    const res = await request(app)
         .post(`/cashier/acceptPayment/${order._id}`)
         .set('cookie', cookie)
         .send()
         .expect(200)
+
+    expect(res.body.order).not.toBeNull()
+    expect(res.body.check).not.toBeNull()
+    
+    checkID = res.body.check._id
+})
+
+test('Should get check', async () => {
+    const res = await request(app)
+        .get(`/cashier/getCheck/${checkID}`)
+        .set('cookie', cookie)
+        .send()
+        .expect(200)
+
+    expect(res.check).not.toBeNull()
 })

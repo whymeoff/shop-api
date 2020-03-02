@@ -41,12 +41,22 @@ const acceptPayment = async (req, res) => {
         if (order.state !== 1) throw new Error
         order.state = 2 // State 2 = accepted payment
 
-        // const check = new Check({ product: order.product, price: order.price, cashier: req.user.id, orderDate: order.creationDate })
+        const check = await new Check({ product: order.product, price: order.price, cashier: req.user.id, orderDate: order.creationDate }).save()
 
-        // await check.save()
         await order.save()
 
-        return res.send()
+        return res.send({ check, order })
+    } catch (e) {
+        res.status(400).send()
+    }
+}
+
+const getCheck = async (req, res) => {
+    try {
+        const check = await Check.findById(req.params.id)
+        if (!check) throw new Error
+
+        return res.send({ check })
     } catch (e) {
         res.status(400).send()
     }
@@ -55,5 +65,6 @@ const acceptPayment = async (req, res) => {
 module.exports = {
     createOrder,
     cancelOrder,
-    acceptPayment
+    acceptPayment,
+    getCheck
 }
