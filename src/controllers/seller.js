@@ -1,5 +1,6 @@
 const Order = require('../models/order')
 
+// GET to get all orders with state 0
 const getOrders = async (req, res) => {
     try {
         const orders = await Order.find({ state: 0 })
@@ -10,6 +11,7 @@ const getOrders = async (req, res) => {
     }
 }
 
+// PATCH to execute order (state from 0 to 1)
 const orderExecuted = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id)

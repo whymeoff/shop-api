@@ -14,6 +14,7 @@ const createAdmin = async (req, res) => {
     }
 }
 
+//POST to create staff profiles
 const createStaff = async (req, res) => {
     const user = new User({...req.body})
     
@@ -25,6 +26,7 @@ const createStaff = async (req, res) => {
     }
 }
 
+//PATCH to edit staff profiles
 const editStaff = async (req, res) => {
     const allowedUpdates = ['fullName', 'age', 'role', 'email', 'password']
     const updates = Object.keys(req.body)
@@ -50,6 +52,7 @@ const editStaff = async (req, res) => {
     }
 }
 
+// DELETE to delete staff profiles
 const deleteStaff = async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id)
@@ -61,6 +64,7 @@ const deleteStaff = async (req, res) => {
     }
 }
 
+// POST to create product item
 const createProduct = async (req, res) => {
     const product = new Product({...req.body})
 
@@ -72,6 +76,7 @@ const createProduct = async (req, res) => {
     }
 }
 
+// PATCH to edit product
 const editProduct = async (req, res) => {
     const allowedUpdates = ['name', 'description', 'price']
     const updates = Object.keys(req.body)
@@ -97,6 +102,7 @@ const editProduct = async (req, res) => {
     }
 }
 
+// DELETE to delete product
 const deleteProduct = async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(req.params.id)

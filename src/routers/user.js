@@ -7,7 +7,6 @@ const User = require('../models/user')
 const router = express.Router()
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
-    // console.log(res.req.session)
     res.send()
 })
 

@@ -2,6 +2,7 @@ const Order = require('../models/order')
 const Product = require('../models/product')
 const Check = require('../models/cashierCheck')
 
+// POST to create order
 const createOrder = async (req, res) => {
     try {
         const product = await Product.findById(req.body.id)
@@ -18,6 +19,7 @@ const createOrder = async (req, res) => {
     }
 }
 
+// PATCH to cancel order (state to 3)
 const cancelOrder = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id)
@@ -34,6 +36,7 @@ const cancelOrder = async (req, res) => {
     }
 }
 
+// POST to accept payment(change state to 2 and create some cashier check)
 const acceptPayment = async (req, res) => {
     try {
         const order = await Order.findById(req.params.id)
@@ -51,6 +54,7 @@ const acceptPayment = async (req, res) => {
     }
 }
 
+// GET to get some check by ID
 const getCheck = async (req, res) => {
     try {
         const check = await Check.findById(req.params.id)

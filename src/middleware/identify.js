@@ -1,3 +1,5 @@
+// Middleware to identify some roles
+
 const isCashier = (req, res, next) => {
     if (req.isAuthenticated()) {
         if (req.user.role === 'cashier' || req.user.role === 'admin') return next()

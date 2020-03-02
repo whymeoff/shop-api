@@ -1,5 +1,6 @@
 const Order = require('../models/order')
 
+// GET orders by date(using query string ?from=year-month-day&to=year-moth-day) or just all orders
 const getOrders = async (req, res) => {
     try {
         const orders = await Order.find()
