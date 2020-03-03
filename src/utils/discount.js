@@ -9,7 +9,7 @@ const Product = require('../models/product')
 
 const discount = async () => {
     try {
-        const products = await Product.find({})
+        const products = await Product.find({ discount: false })
         const date = new Date().getDate()
         const ms = 2592000000
 
